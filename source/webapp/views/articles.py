@@ -1,24 +1,21 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.http import urlencode
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 
 from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
 
 
 class ArticleListView(ListView):
-    # queryset = Article.objects.filter(title__contains="Стат")
     model = Article
     template_name = "articles/index.html"
     ordering = ['-created_at']
     context_object_name = "articles"
     paginate_by = 5
-
-    # paginate_orphans = 2
 
     def dispatch(self, request, *args, **kwargs):
         print(request.user.is_authenticated, "is_authenticated")
@@ -89,3 +86,23 @@ class DeleteArticleView(PermissionRequiredMixin, DeleteView):
 
     def has_permission(self):
         return super().has_permission() or self.request.user == self.get_object().author
+
+
+class LikeArticleView(LoginRequiredMixin, View):
+    def get(self, request, *args, pk, **kwargs):
+        article = get_object_or_404(Article, pk=pk)
+        if request.user not in article.like_users.all():
+            article.like_users.add(request.user)
+        return JsonResponse({
+            'likes_count': article.like_users.count()
+        })
+
+
+class UnlikeArticleView(View):
+    def get(self, request, *args, pk, **kwargs):
+        article = get_object_or_404(Article, pk=pk, )
+        if request.user in article.like_users.all():
+            article.like_users.remove(request.user)
+        return JsonResponse({
+            'likes_count': article.like_users.count()
+        })
