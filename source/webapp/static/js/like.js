@@ -24,14 +24,12 @@ async function onClickLike(event) {
     try {
         let data = await makeRequest(url);
         if (action === 'like') {
-            button.innerText = 'Unlike';
-            button.classList.remove('btn-primary');
-            button.classList.add('btn-danger');
+            button.querySelector('i').classList.remove('bi-heart');
+            button.querySelector('i').classList.add('bi-heart-fill');
             button.dataset.action = 'unlike';
         } else if (action === 'unlike') {
-            button.innerText = 'Like';
-            button.classList.remove('btn-danger');
-            button.classList.add('btn-primary');
+            button.querySelector('i').classList.remove('bi-heart-fill');
+            button.querySelector('i').classList.add('bi-heart');
             button.dataset.action = 'like';
         }
         let likesCountElement;

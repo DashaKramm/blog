@@ -17,7 +17,7 @@
                         <button type="button" data-js="like-button" data-article-id="{{ article.pk }}"
                                 data-action="{% if user in article.like_users.all %}unlike{% else %}like{% endif %}"
                                 class="{% if user in article.like_users.all %}btn btn-danger{% else %}btn btn-primary{% endif %}">
-                            {% if user in article.like_users.all %}Unlike{% else %}Like{% endif %}
+                            <i class="bi {% if user in article.like_users.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
                         </button>
                     {% endif %}
                     <span id="likes-count-{{ article.pk }}">{{ article.like_users.count }} likes</span>
