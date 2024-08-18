@@ -38,7 +38,7 @@ class ArticleListView(ListView):
         queryset = super().get_queryset()
         if self.search_value:
             queryset = queryset.filter(
-                Q(title__contains=self.search_value) | Q(author__contains=self.search_value)
+                Q(title__contains=self.search_value) | Q(author__username__contains=self.search_value)
             )
         return queryset
 
