@@ -13,14 +13,6 @@
                             Нет ни одного тега
                         {% endfor %}
                     </p>
-                    {% if user.is_authenticated %}
-                        <button type="button" data-js="like-button" data-article-id="{{ article.pk }}"
-                                data-action="{% if user in article.like_users.all %}unlike{% else %}like{% endif %}"
-                                class="{% if user in article.like_users.all %}btn btn-danger{% else %}btn btn-primary{% endif %}">
-                            <i class="bi {% if user in article.like_users.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
-                        </button>
-                    {% endif %}
-                    <span id="likes-count-{{ article.pk }}">{{ article.like_users.count }} likes</span>
                     <div class="btn-group" role="group">
                         <a href="{{ article.get_absolute_url }}" class="btn btn-primary"><i
                                 class="bi bi-blockquote-right"></i></a>
@@ -28,11 +20,20 @@
                             <a href="{% url "webapp:update_article" article.pk %}"
                                class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
                         {% endif %}
-                        {% if perms.webapp.delete_article %}
+                        {% if perms.webapp.delete_article or request.user == article.author %}
                             <a href="{% url "webapp:delete_article" article.pk %}" class="btn btn-primary"><i
                                     class="bi bi-trash3"></i></a>
                         {% endif %}
                     </div>
+                    {% if user.is_authenticated %}
+                        <button type="button" data-js="like-button" data-article-id="{{ article.pk }}"
+                                data-action="{% if user in article.like_users.all %}unlike{% else %}like{% endif %}"
+                                class="{% if user in article.like_users.all %}btn btn-danger{% else %}btn btn-primary{% endif %}">
+                            <i class="bi {% if user in article.like_users.all %}bi-heart-fill{% else %}bi-heart{% endif %}"></i>
+                        </button>
+                    {% endif %}
+                    <span id="likes-count-{{ article.pk }}">{{ article.like_users.count }} likes</span><br>
+
                 </div>
             </div>
         </div>

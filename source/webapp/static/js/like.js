@@ -11,7 +11,7 @@ async function makeRequest(url, method = "GET") {
 
 async function onClickLike(event) {
     event.preventDefault();
-    let button = event.target;
+    let button = event.currentTarget;
     let articleId = button.dataset.articleId;
     let commentId = button.dataset.commentId;
     let action = button.dataset.action;
@@ -24,10 +24,14 @@ async function onClickLike(event) {
     try {
         let data = await makeRequest(url);
         if (action === 'like') {
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-danger');
             button.querySelector('i').classList.remove('bi-heart');
             button.querySelector('i').classList.add('bi-heart-fill');
             button.dataset.action = 'unlike';
         } else if (action === 'unlike') {
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-primary');
             button.querySelector('i').classList.remove('bi-heart-fill');
             button.querySelector('i').classList.add('bi-heart');
             button.dataset.action = 'like';
