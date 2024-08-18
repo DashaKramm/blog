@@ -111,5 +111,41 @@
         "groups": [],
         "user_permissions": []
     }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$PkvHjI8Wm8MGfn4zWIdJcX$n1XHAFd3lXgA8KONwIcgzfHV3j5vPg6/eqc7M9H+iGc=",
+        "last_login": "2024-08-18T16:12:45.316Z",
+        "is_superuser": false,
+        "username": "daf",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-08-18T10:59:13.761Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$0ZTUdNPgr0CdO1DZxKAyAt$DmnogX3ELNnQi7jRB0nVS/hKaJiqQzUOgKUeZyGATTg=",
+        "last_login": "2024-08-18T17:23:56.886Z",
+        "is_superuser": false,
+        "username": "lex",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-08-18T17:23:52.278Z",
+        "groups": [],
+        "user_permissions": []
+    }
 }
 ]
